@@ -1,14 +1,21 @@
 <head>
-  <title>essentialepisodes</title>
+  <title>Essential Episodes</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
+	<div class="container">
+		<header>
+  		<h1>Essential Episodes</h1>
+		</header>
+		
+		<ul>
+			{{#each series}}
+				{{> oneseries}}
+			{{/each}}
+		</ul>
+	</div>
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="oneseries">
+	<li>{{series}}, {{episodeCount}} episodes</li>
 </template>
