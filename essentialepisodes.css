@@ -1,1 +1,9 @@
 /* CSS declarations go here */
+.series-list-item{
+  background: #ddd;
+  margin-bottom: 10px;
+}
+
+.series-list-item h2{
+  margin-top: 10px;
+}
