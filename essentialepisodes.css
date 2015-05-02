@@ -1,9 +1,21 @@
 /* CSS declarations go here */
 .series-list-item{
+  font-family: "brandon-grotesque";
+
   background: #ddd;
   margin-bottom: 10px;
 }
 
 .series-list-item h2{
   margin-top: 10px;
+  font-weight: 900;
+}
+
+.jumbotron{
+  height: 600px;
+}
+
+.jumbotron h1{
+  font-family: "brandon-grotesque";
+  font-weight: 100;
 }
