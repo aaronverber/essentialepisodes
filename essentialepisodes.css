@@ -1,21 +1,51 @@
 /* CSS declarations go here */
 .series-list-item{
-  font-family: "brandon-grotesque";
-
   background: #ddd;
   margin-bottom: 10px;
 }
 
 .series-list-item h2{
   margin-top: 10px;
+  margin-bottom: 10px;
   font-weight: 900;
 }
 
 .jumbotron{
-  height: 600px;
+  height: 50%;
+  text-align: center;
 }
 
 .jumbotron h1{
-  font-family: "brandon-grotesque";
   font-weight: 100;
+  margin-bottom: 40px;
+}
+
+.jumbotron h4{
+  margin-bottom: 10px;
+}
+
+/*.outerjumbo{
+  position: relative;
+  height: 900px;
+  width: 100%;
+}
+
+.jumbo-content{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 800px;
+  height: 300px;
+  margin-left: -400px;
+  margin-top: -150px;
+  overflow: hidden;
+}*/
+
+.outerjumbo {
+  line-height: 900px;
+  height: 900px;
+}
+
+.jumbo-content {
+  display: inline-block;
 }
