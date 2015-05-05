@@ -49,3 +49,7 @@
 .jumbo-content {
   display: inline-block;
 }
+
+.navbar-brand{
+  font-weight: 800;
+}
