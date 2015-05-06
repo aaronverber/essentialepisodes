@@ -27,7 +27,7 @@ if(Meteor.isServer){
               "Content-Type" : "application/json"
             }
           });
-          console.log("RESULT", result);
+          //console.log("RESULT", result);
         return true;
       } catch(e){
         console.log("ERROR", e);
