@@ -8,26 +8,26 @@ if (Meteor.isClient) {
       console.log("Searching", searchedSeries);
       Meteor.call("searchForSeries", searchedSeries, function(err, response){
         Session.set("seriesSearchResults", response);
-        var results = Session.get("seriesSearchResults");
-        console.log("foo", results);
-        mySpecialFunction();
       });
     }
   });
 
   Template.body.helpers({
     seriesSearchResults: function(){
-      Session.get("searchResults");
-      return response;
+      var results = Session.get("seriesSearchResults");
+      var data = JSON.parse(results.content).data;
+      console.log("SERIES SEARCH RESULTS",data);
+      return data;
     }
-  });
-
-  Meteor.call("authTVDB", function(err, response){
-    console.log("RESPONSE", err, response);
   });
 }
 
 if(Meteor.isServer){
+  Meteor.startup(function (){
+    Meteor.call("authTVDB", function(err, response){
+      console.log("RESPONSE", err, response);
+    })
+  });
 
   Meteor.methods({
 
