@@ -6,13 +6,19 @@ if (Meteor.isClient) {
     "click .btn.search-series": function(event){
       var searchedSeries = document.getElementById('searchInput').value;
       console.log("Searching", searchedSeries);
-      Meteor.call("searchForSeries", searchedSeries);
+      Meteor.call("searchForSeries", searchedSeries, function(err, response){
+        Session.set("seriesSearchResults", response);
+        var results = Session.get("seriesSearchResults");
+        console.log("foo", results);
+        mySpecialFunction();
+      });
     }
   });
 
   Template.body.helpers({
-    series: function(){
-      return Series.find({});
+    seriesSearchResults: function(){
+      Session.get("searchResults");
+      return response;
     }
   });
 
@@ -24,6 +30,7 @@ if (Meteor.isClient) {
 if(Meteor.isServer){
 
   Meteor.methods({
+
     authTVDB: function(){
       this.unblock();
       try{
@@ -47,17 +54,16 @@ if(Meteor.isServer){
     },
 
     getAuthToken: function(){
-      var AuthToken = Authentication.findOne();
+      var AuthToken = Authentication.findOne({}, {sort: {$natural: -1}});
       console.log(AuthToken);
       return AuthToken.token;
     },
 
     searchForSeries: function(searchedSeries){
-      console.log("HERE")
       var token = Meteor.call("getAuthToken");
       console.log("SEARCH FOR SERIES", token);
       try{
-        var seriesResult = HTTP.call("GET", "https://api-dev.thetvdb.com/search/series",{
+        var seriesSearchResults = HTTP.call("GET", "https://api-dev.thetvdb.com/search/series",{
           params:{
             "name": searchedSeries
           },
@@ -67,7 +73,8 @@ if(Meteor.isServer){
             "accept-language" : "en-US,en;q=0.8"
           }
         });
-        console.log(seriesResult);
+        console.log(seriesSearchResults);
+        return seriesSearchResults;
       } catch(e){
         console.log("ERROR", e);
         return false;
