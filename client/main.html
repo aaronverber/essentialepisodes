@@ -37,18 +37,22 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-	<div class="jumbotron outerjumbo">
-    <div class="jumbo-content">
-		  <h1>Your favorite shows. Faster.</h1>
-		  <h3>Help me watch the essential</h3>
-      <div class="search-series-container">
-        <div class="search-input-wrapper">
-          <input type="text" class="form-control input-lg" id="searchInput" placeholder="The X-Files">
-        </div>
-        <button type="button" class="btn btn-lg search-series">Search</button>
-      </div>
-    </div>
-	</div>
+	<div class="jumbotron">
+    <div class="container">
+	     <h1>Your favorite shows. Faster.</h1>
+       <h3>Help me watch the essential</h3>
+       <div class="row">
+         <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2">
+           <div class="input-group">
+             <input type="text" class="form-control input-lg" id="searchInput" placeholder="Search for...">
+             <span class="input-group-btn">
+               <button class="btn btn-lg btn-success search-series"  type="button">Go!</button>
+             </span>
+           </div><!-- /input-group -->
+         </div><!-- /.col-lg-6 -->
+       </div><!-- /.row -->
+     </div>
+   </div>
 
 	<div class="container">
 			{{#each seriesSearchResults}}
