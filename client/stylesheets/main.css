@@ -7,7 +7,11 @@
 .series-list-item h2{
   margin-top: 10px;
   margin-bottom: 10px;
-  font-weight: 900;
+  font-weight: 700;
+}
+
+.series-list-item p{
+  font-size: 14pt;
 }
 
 .jumbotron{
@@ -16,12 +20,13 @@
 }
 
 .jumbotron h1{
-  font-weight: 100;
+  font-weight: 300;
   margin-bottom: 40px;
 }
 
 .jumbotron h3{
   margin-bottom: 20px;
+  font-weight: 700;
 }
 
 .outerjumbo {
@@ -35,7 +40,7 @@
 }
 
 .navbar-brand{
-  font-weight: 800;
+  font-weight: 700;
 }
 
 .search-series-container{
