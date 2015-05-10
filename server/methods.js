@@ -1,6 +1,4 @@
-function getSeriesPoster(seriesPoster){
-  console.log("Series Poster", seriesPoster.poster);
-}
+
 
 
 Meteor.methods({
@@ -50,7 +48,7 @@ Meteor.methods({
       var seriesSearchResultsParsed = JSON.parse(seriesSearchResults.content).data;
       console.log(seriesSearchResultsParsed);
       _.each(seriesSearchResultsParsed, function(result){
-        getSeriesPoster(result);
+        var poster = result.poster;
       });
       return seriesSearchResultsParsed;
     } catch(e){
