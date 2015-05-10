@@ -10,9 +10,6 @@ Template.body.events({
 
 Template.body.helpers({
   seriesSearchResults: function(){
-    var results = Session.get("seriesSearchResults");
-    var data = JSON.parse(results.content).data;
-    console.log("SERIES SEARCH RESULTS",data);
-    return data;
+    return Session.get("seriesSearchResults");
   }
 });

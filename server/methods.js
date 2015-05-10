@@ -1,3 +1,8 @@
+function getSeriesPoster(seriesPoster){
+  console.log("Series Poster", seriesPoster.poster);
+}
+
+
 Meteor.methods({
 
   authTVDB: function(){
@@ -42,12 +47,15 @@ Meteor.methods({
           "accept-language" : "en-US,en;q=0.8"
         }
       });
-      console.log(seriesSearchResults);
-      return seriesSearchResults;
+      var seriesSearchResultsParsed = JSON.parse(seriesSearchResults.content).data;
+      console.log(seriesSearchResultsParsed);
+      _.each(seriesSearchResultsParsed, function(result){
+        getSeriesPoster(result);
+      });
+      return seriesSearchResultsParsed;
     } catch(e){
       console.log("ERROR", e);
       return false;
     };
   }
-
 });
