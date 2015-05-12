@@ -10,3 +10,8 @@ insecure
 less
 nemo64:bootstrap
 http
+meteorhacks:npm
+
+
+npm-container
+iron:router

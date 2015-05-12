@@ -1,4 +1,9 @@
 /* CSS declarations go here */
+
+.search-results-list{
+
+}
+
 .series-list-item{
   background: #ddd;
   margin-bottom: 10px;
@@ -13,6 +18,10 @@
 
 .series-list-item p{
   font-size: 14pt;
+}
+
+.series-list-item img{
+
 }
 
 .navbar-brand{
