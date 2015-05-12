@@ -1,7 +1,11 @@
 <template name="seriesListItem">
-  <div class="series-list-item col-lg-8">
-    <img src="{{poster}}">
-    <h2>{{name}}</h2>
-	  <p>{{description}}</p>
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="row">
+      <div class="series-list-item">
+        <div class="series-list-item-banner" style="background-image: url({{poster}})"></div>
+        <h2>{{name}}</h2>
+        <p>{{description}}</p>
+      </div>
+    </div>
   </div>
 </template>

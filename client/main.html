@@ -55,10 +55,12 @@
   </div>
 
 
-	<div class="container search-results-list">
-			{{#each seriesSearchResults}}
-				{{> seriesListItem}}
-			{{/each}}
+	<div class="container">
+      {{#momentum plugin="fade"}}
+  			{{#each seriesSearchResults}}
+  				{{> seriesListItem}}
+  			{{/each}}
+      {{/momentum}}
 	</div>
 
 </body>

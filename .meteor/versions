@@ -44,6 +44,8 @@ nemo64:bootstrap-data@3.3.4_1
 npm-container@1.0.0
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+percolate:momentum@0.7.2
+percolate:velocityjs@1.1.0
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5
