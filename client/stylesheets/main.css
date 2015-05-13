@@ -4,38 +4,31 @@
 }
 
 .series-list-item{
-  padding: 10px;
-  margin-bottom: 10px;
-  position: relative;
-  min-height: 140px;
-  background: #ccc;
+  background-color: #ddd;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
-.series-list-item:after{
-  padding-top: 56.25%;
+.series-list-item:hover{
+  background-color: #bbb;
 }
 
-.series-list-item h2{
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-weight: 700;
+.series-list-item h3{
+  margin-top: 2px;
+  padding: 5px;
   text-transform: uppercase;
+  font-weight: 400;
 }
 
 .series-list-item p{
-  font-size: 14pt;
+
 }
 
 .series-list-item img{
-
+  width: 100%;
 }
 
-.series-list-item-banner{
-  position: absolute;
-  top:0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+.series-list-item-name{
 }
 
 .navbar-brand{
@@ -44,7 +37,7 @@
 
 .jumbotron{
   text-align: center;
-  margin: 0;
+  margin: 0 0 10px 0;
 }
 
 .jumbotron h1{
