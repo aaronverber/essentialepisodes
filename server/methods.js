@@ -2,12 +2,11 @@ var fs = Meteor.npmRequire('fs');
 var http=Npm.require("http");
 var path = Npm.require('path');
 
-function writeImage(fileName, buffer){
-  fs.writeFileSync('/home/aaron/dev/essentialepisodes/public/img/banner/' + fileName, buffer, 'binary');
+function writeImage(type, fileName, buffer){
+  fs.writeFileSync('/home/aaron/dev/essentialepisodes/public/img/' + type + "/" + fileName, buffer, 'binary');
 }
 
-function getImageData(name, url){
-  console.log("URL", url)
+function getImageData(type, name, url){
   url = "http://thetvdb.com/banners/" + url;
   http.get(url, function(resp) {
     var buf = new Buffer("", "binary");
@@ -15,8 +14,23 @@ function getImageData(name, url){
         buf = Buffer.concat([buf, chunk]);
     });
     resp.on('end', function() {
-      writeImage(name, buf);
+      writeImage(type, name, buf);
     });
+  });
+}
+
+function getFanartImages(id){
+  console.log("anything?");
+  var apiKey = "e8e54550751d9a8304589c5d166c557d";
+  var url = "http://private-anon-bbb7bf2e1-fanarttv.apiary-proxy.com/v3/tv/" + id + "?api_key=" + apiKey;
+  http.get(url, function(res){
+    var data = "";
+    res.on("data", function(chunk) {
+      data += chunk;
+    });
+    res.on("end",function(){
+      console.log(data.name);
+    })
   });
 }
 
@@ -84,7 +98,9 @@ Meteor.methods({
           });
           //console.log("record added");
           var poster = result.poster;
-          getImageData(result.id + fileExtension, poster);
+          var type = "banner";
+          getImageData(type, result.id + fileExtension, poster);
+          getFanartImages(result.id);
         }
       });
       var searchedSeriesIds = _.pluck(seriesSearchResultsParsed, "id");
