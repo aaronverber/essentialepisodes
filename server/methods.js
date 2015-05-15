@@ -2,8 +2,13 @@ var fs = Meteor.npmRequire('fs');
 var http=Npm.require("http");
 var path = Npm.require('path');
 
+var rootPath = path.resolve('.').split('.meteor')[0];
+
 function writeImage(type, fileName, buffer){
-  fs.writeFileSync('/home/aaron/dev/essentialepisodes/public/img/' + type + "/" + fileName, buffer, 'binary');
+  var projectFolder = rootPath;
+  var imageFolder = "public/img";
+  var imagePath = path.join(projectFolder, imageFolder, type, fileName);
+  fs.writeFileSync(imagePath, buffer, 'binary');
 }
 
 function getImageData(type, name, url){
@@ -20,7 +25,6 @@ function getImageData(type, name, url){
 }
 
 function getFanartImages(id){
-  console.log("anything?");
   var apiKey = "e8e54550751d9a8304589c5d166c557d";
   var url = "http://private-anon-bbb7bf2e1-fanarttv.apiary-proxy.com/v3/tv/" + id + "?api_key=" + apiKey;
   http.get(url, function(res){
@@ -100,7 +104,7 @@ Meteor.methods({
           var poster = result.poster;
           var type = "banner";
           getImageData(type, result.id + fileExtension, poster);
-          getFanartImages(result.id);
+          //getFanartImages(result.id);
         }
       });
       var searchedSeriesIds = _.pluck(seriesSearchResultsParsed, "id");
