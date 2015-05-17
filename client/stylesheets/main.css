@@ -4,31 +4,46 @@
 }
 
 .series-list-item{
-  background-color: #ddd;
+  display: flex;
+  align-items: center;
+  border: 1px #ccc solid;
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 10px;
+  overflow: hidden;
 }
 
 .series-list-item:hover{
-  background-color: #bbb;
+  -webkit-box-shadow: 10px 10px 41px -15px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 41px -15px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 41px -15px rgba(0,0,0,0.75);
 }
 
-.series-list-item h3{
-  margin-top: 2px;
-  padding: 5px;
+.series-list-item h2{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding: 5px 0 5px 0;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 700;
+  border-bottom: 1px solid black;
 }
 
 .series-list-item p{
-
+  padding-top: 5px;
 }
 
-.series-list-item img{
+.series-list-item-poster{
+  flex-basis: 25%;
+  flex-grow: 1;
+}
+
+.series-list-item-poster img{
   width: 100%;
 }
 
-.series-list-item-name{
+.series-list-item-text{
+  padding: 10px;
+  flex-basis: 75%;
+  flex-grow: 1;
 }
 
 .navbar-brand{
