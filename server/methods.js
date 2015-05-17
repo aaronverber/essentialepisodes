@@ -24,6 +24,8 @@ function getImageData(type, name, url){
   });
 }
 
+
+
 function getFanartImages(id){
   var apiKey = "e8e54550751d9a8304589c5d166c557d";
   var url = "http://private-anon-bbb7bf2e1-fanarttv.apiary-proxy.com/v3/tv/" + id + "?api_key=" + apiKey;
@@ -98,22 +100,54 @@ Meteor.methods({
             "network": result.network,
             "status": result.status,
             "createdAt": new Date(),
-            "poster": "/img/banner/" + result.id + fileExtension
+            "banner": "/img/banner/" + result.id + fileExtension
           });
           //console.log("record added");
           var poster = result.poster;
           var type = "banner";
           getImageData(type, result.id + fileExtension, poster);
-          //getFanartImages(result.id);
-        }
+          Meteor.call("getExtraImages", result.id, "poster");
+        };
       });
       var searchedSeriesIds = _.pluck(seriesSearchResultsParsed, "id");
-      //console.log(searchedSeriesIds);
       var searchedSeriesDB = Series.find({tvdbId:{$in: searchedSeriesIds}}).fetch();
-      //console.log(searchedSeriesDB);
       return searchedSeriesDB;
     } catch(e){
-      //console.log("ERROR", e);
+      return false;
+    };
+  },
+
+  getExtraImages: function(id, type){
+    console.log("get extra images");
+    var token = Meteor.call("getAuthToken");
+    try{
+      var extraImages = HTTP.call("GET", "https://api-dev.thetvdb.com/series/" + id + "/images/query",{
+        params:{
+          "keyType" : type
+        },
+        headers:{
+          "authorization" : "Bearer " + token,
+          "accept" : "application/vnd.thetvdb.v1.2.0",
+          "accept-language" : "en-US,en;q=0.8"
+        }
+      });
+      var extraImagesParsed = JSON.parse(extraImages.content).data;
+      extraImagesParsed.sort(function(a,b){
+        return b.ratingsInfo.average > a.ratingsInfo.average;
+      });
+      var bestImage = extraImagesParsed[0].fileName;
+      var fileExtension = path.extname(bestImage);
+      Series.update({
+        tvdbId: id
+      },{
+        $set:{
+          poster: "/img/" + type + "/" + id + fileExtension
+        }
+      });
+      getImageData(type, id + fileExtension, bestImage);
+      console.log(bestImage);
+    } catch(e){
+      console.log(e);
       return false;
     };
   }
