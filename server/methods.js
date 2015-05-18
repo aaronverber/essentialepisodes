@@ -73,7 +73,7 @@ Meteor.methods({
 
   searchForSeries: function(searchedSeries){
     var token = Meteor.call("getAuthToken");
-    //console.log("SEARCH FOR SERIES", token);
+    console.log("SEARCH FOR SERIES", token);
     try{
       var seriesSearchResults = HTTP.call("GET", "https://api-dev.thetvdb.com/search/series",{
         params:{
