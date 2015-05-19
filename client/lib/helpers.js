@@ -1,6 +1,6 @@
 Template.jumbotron.events({
   "submit form": function(event){
-    var searchedSeries = document.getElementById('searchInput').value;
+    var searchedSeries = event.target.text.value;
     console.log("Searching", searchedSeries);
     Meteor.call("searchForSeries", searchedSeries, function(err, response){
       Session.set("seriesSearchResults", response);
