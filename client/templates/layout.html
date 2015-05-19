@@ -1,0 +1,12 @@
+<template name = "homeLayout">
+  <div>{{> navigation}}</div>
+
+  <topper>
+    {{> yield "topper"}}
+  </topper>
+
+  <content>
+    {{> yield}}
+  </content>
+
+</template>

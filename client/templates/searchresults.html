@@ -1,0 +1,9 @@
+<template name="searchResults">
+  <div class="container">
+      {{#momentum plugin="fade"}}
+  			{{#each seriesSearchResults}}
+  				{{> seriesListItem}}
+  			{{/each}}
+      {{/momentum}}
+	</div>
+</template>

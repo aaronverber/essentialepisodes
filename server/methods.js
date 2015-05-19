@@ -107,11 +107,13 @@ Meteor.methods({
           var type = "banner";
           getImageData(type, result.id + fileExtension, poster);
           Meteor.call("getExtraImages", result.id, "poster");
+          Meteor.call("getExtraImages", result.id, "fanart");
         };
       });
       var searchedSeriesIds = _.pluck(seriesSearchResultsParsed, "id");
-      var searchedSeriesDB = Series.find({tvdbId:{$in: searchedSeriesIds}}).fetch();
-      return searchedSeriesDB;
+      return searchedSeriesIds;
+      //var searchedSeriesDB = Series.find({tvdbId:{$in: searchedSeriesIds}}).fetch();
+      //return searchedSeriesDB;
     } catch(e){
       return false;
     };
@@ -133,17 +135,29 @@ Meteor.methods({
       });
       var extraImagesParsed = JSON.parse(extraImages.content).data;
       extraImagesParsed.sort(function(a,b){
-        return b.ratingsInfo.average > a.ratingsInfo.average;
+        return b.ratingsInfo.average - a.ratingsInfo.average;
       });
+      console.log(extraImagesParsed);
       var bestImage = extraImagesParsed[0].fileName;
+      console.log("best image is", bestImage);
       var fileExtension = path.extname(bestImage);
-      Series.update({
-        tvdbId: id
-      },{
-        $set:{
-          poster: "/img/" + type + "/" + id + fileExtension
-        }
-      });
+      if(type == "poster"){
+        Series.update({
+          "tvdbId": id
+        },{
+          $set:{
+            "poster": "/img/" + type + "/" + id + fileExtension
+          }
+        });
+      } else if (type == "fanart"){
+        Series.update({
+          "tvdbId": id
+        },{
+          $set:{
+            "fanart": "/img/" + type + "/" + id + fileExtension
+          }
+        });
+      };
       getImageData(type, id + fileExtension, bestImage);
       console.log(bestImage);
     } catch(e){
