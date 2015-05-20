@@ -119,6 +119,37 @@ Meteor.methods({
     };
   },
 
+  getEpisodeDetails: function(id){
+    console.log("getting episode count for", id);
+    var token = Meteor.call("getAuthToken");
+    try{
+      var episodeCount = HTTP.call("GET", "https://api-dev.thetvdb.com/series/" + id + "/episodes/summary",{
+        headers:{
+          "authorization" : "Bearer " + token,
+          "accept" : "application/vnd.thetvdb.v1.2.0",
+          "accept-language" : "en-US,en;q=0.8"
+        }
+      });
+      var episodeCountParsed = JSON.parse(episodeCount.content).data;
+      var totalEpisodes = episodeCountParsed.airedEpisodes;
+      var totalSeasons = episodeCountParsed.airedSeasons.count();
+      Series.update({
+        "tvdbId": id
+      },{
+        $set:{
+          "episodeCount" : totalEpisodes,
+          "seasonCount" : totalSeasons
+        }
+      });
+      var pages = (Number(totalEpisodes) / 100).ceil();
+      console.log(pages, "pages");
+
+    } catch(e){
+      console.log(e);
+      return false;
+    }
+  },
+
   getExtraImages: function(id, type){
     console.log("get extra images");
     var token = Meteor.call("getAuthToken");
