@@ -17,3 +17,17 @@ Template.searchResults.helpers({
     return Series.find({tvdbId:{$in: stuff}});
   }
 });
+
+Template.searchResults.events({
+  "click .series-list-item" : function(event){
+    var series = $(event.currentTarget).data("id");
+    if(Episodes.find({tvdb: series}).count()>0){
+      return;
+    } else{
+      Meteor.call("getEpisodeCount", series);
+    }
+    console.log(series, event.currentTarget);
+    Session.set("clickedEpisode", series);
+    Router.go('/series/' + series);
+  }
+});

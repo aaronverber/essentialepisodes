@@ -10,3 +10,16 @@
   </content>
 
 </template>
+
+<template name = "seriesLayout">
+  <div>{{> navigation}}</div>
+
+  <topper>
+    {{> yield "topper"}}
+  </topper>
+
+  <content>
+    {{> yield}}
+  </content>
+
+</template>

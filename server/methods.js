@@ -119,8 +119,7 @@ Meteor.methods({
     };
   },
 
-  getEpisodeDetails: function(id){
-    console.log("getting episode count for", id);
+  getEpisodeCount: function(id){
     var token = Meteor.call("getAuthToken");
     try{
       var episodeCount = HTTP.call("GET", "https://api-dev.thetvdb.com/series/" + id + "/episodes/summary",{
@@ -132,22 +131,56 @@ Meteor.methods({
       });
       var episodeCountParsed = JSON.parse(episodeCount.content).data;
       var totalEpisodes = episodeCountParsed.airedEpisodes;
-      var totalSeasons = episodeCountParsed.airedSeasons.count();
+      //var totalSeasons = episodeCountParsed.airedSeasons;
       Series.update({
         "tvdbId": id
       },{
         $set:{
-          "episodeCount" : totalEpisodes,
-          "seasonCount" : totalSeasons
+          "epCount" : totalEpisodes
         }
       });
-      var pages = (Number(totalEpisodes) / 100).ceil();
+      console.log("Total ", totalEpisodes)
+      var pages = Math.ceil(totalEpisodes / 100);
       console.log(pages, "pages");
-
+      Meteor.call("getEpisodeDetails", id, pages);
     } catch(e){
       console.log(e);
       return false;
-    }
+    };
+  },
+
+  getEpisodeDetails: function(id, pages){
+    console.log("getting episode count for", id);
+    var token = Meteor.call("getAuthToken");
+    for (i = 0; i < pages; i++){
+      try{
+        var episodeData = HTTP.call("GET", "https://api-dev.thetvdb.com/series/" + id + "/episodes", {
+          params:{
+            "page" : (i + 1)
+          },
+          headers:{
+            "authorization" : "Bearer " + token,
+            "accept" : "application/vnd.thetvdb.v1.2.0",
+            "accept-language" : "en-US,en;q=0.8"
+          }
+        });
+        console.log(episodeData);
+        var episodeDataParsed = JSON.parse(episodeData.content).data;
+        console.log(episodeDataParsed);
+        _.each(episodeDataParsed, function(result){
+          Episodes.insert({
+            "tvdbId": id,
+            "season": result.airedSeason,
+            "number": result.airedEpisodeNumber,
+            "name": result.episodeName,
+            "description": result.overview
+          });
+        });
+      } catch (e){
+        console.log(e);
+        return false;
+      };
+    };
   },
 
   getExtraImages: function(id, type){

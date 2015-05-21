@@ -8,8 +8,15 @@ Router.route('/series/:tvdbId', function(){
   this.layout('seriesLayout');
   this.render('episodeList',{
     data: function(){
+      var episodes = Episodes.find({tvdbId: parseInt(this.params.tvdbId)});
+      console.log("episodes", episodes, this.params.tvdbId);
+      return {episodes: episodes};
+    }
+  });
+  this.render('seriesInfo',{
+    to: 'topper',
+    data: function(){
       return Series.find({tvdbId: this.params.tvdbId});
     }
   });
-  this.render('seriesInfo', {to: 'topper'});
-})
+});

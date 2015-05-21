@@ -1,13 +1,17 @@
-<template name="seriesListItem">
-  <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12">
-    <div class="series-list-item hvr-sweep-to-right">
-      <div class="series-list-item-poster">
-        <img src="{{poster}}" alt="no image">
-      </div>
-      <div class="series-list-item-text">
-        <h2>{{name}}</h2>
-        <p>{{description}}</p>
-      </div>
-    </div>
+<template name="searchResults">
+  <div class="container">
+    {{#momentum plugin="fade"}}
+			{{#each seriesSearchResults}}
+				{{> seriesListItem}}
+			{{/each}}
+    {{/momentum}}
+</div>
+</template>
+
+<template name="episodeList">
+  <div class="container">
+    {{#each episodes}}
+      <p>{{name}}</p>
+    {{/each}}
   </div>
 </template>
