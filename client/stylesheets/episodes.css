@@ -1,5 +1,41 @@
+.series-topper{
+  margin: 10px 0 10px 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+  overflow: hidden;
+}
+.series-topper-poster{
+  flex-basis: 20%;
+  flex-grow: 1;
+}
+
+.series-topper-poster img{
+  width: 90%;
+  height: auto;
+}
+
+.series-topper-text{
+  flex-basis: 80%;
+  flex-grow: 1;
+}
+
+.series-topper-text h1{
+  font-weight: 100;
+  text-transform: uppercase;
+  font-size: 50px;
+}
+
+.series-topper-text p{
+  font-size: 16px;
+}
+
+.episode-list{
+}
+
 .episode-list-item{
   border: 1px solid black;
-  margin: 5px 0 5px 0;
+  margin: 0 0 10px 0;
   padding: 5px;
 }

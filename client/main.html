@@ -6,6 +6,18 @@
 
 <body>
 
-
+<script>
+var pathArray = window.location.pathname.split("/");
+var seriesNum = pathArray[2];
+$(".series-topper").css({
+  "background": "url(/img/fanart/"+ seriesNum +".jpg) no-repeat center center fixed",
+  "background-size": "cover",
+  "-webkit-background-size": "cover",
+  "-moz-background-size": "cover",
+  "-o-background-size": "cover",
+  "filter": "blur(5px)",
+  "-webkit-filter": "blur(5px)"
+});
+</script>
 
 </body>

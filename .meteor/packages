@@ -17,3 +17,4 @@ iron:router
 percolate:momentum
 jquery
 meteorhacks:kadira
+okgrow:iron-router-autoscroll

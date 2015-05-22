@@ -47,6 +47,7 @@ nemo64:bootstrap@3.3.4_2
 nemo64:bootstrap-data@3.3.4_1
 npm-container@1.0.0
 observe-sequence@1.0.6
+okgrow:iron-router-autoscroll@0.0.8
 ordered-dict@1.0.3
 percolate:momentum@0.7.2
 percolate:velocityjs@1.1.0
