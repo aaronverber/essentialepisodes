@@ -170,8 +170,8 @@ Meteor.methods({
         _.each(episodeDataParsed, function(result){
           Episodes.insert({
             "tvdbId": id,
-            "season": result.airedSeason,
-            "number": result.airedEpisodeNumber,
+            "season": parseInt(result.airedSeason),
+            "number": parseInt(result.airedEpisodeNumber),
             "name": result.episodeName,
             "description": result.overview
           });

@@ -21,8 +21,8 @@ Template.searchResults.helpers({
 Template.searchResults.events({
   "click .series-list-item" : function(event){
     var series = $(event.currentTarget).data("id");
-    if(Episodes.find({tvdb: series}).count()>0){
-      return;
+    if(Episodes.find({tvdbId: series}).count()>0){
+      console.log("got em already");
     } else{
       Meteor.call("getEpisodeCount", series);
     }

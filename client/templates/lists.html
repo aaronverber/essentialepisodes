@@ -11,7 +11,7 @@
 <template name="episodeList">
   <div class="container">
     {{#each episodes}}
-      <p>{{name}}</p>
+      {{> episodeListItem}}
     {{/each}}
   </div>
 </template>

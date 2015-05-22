@@ -8,7 +8,7 @@ Router.route('/series/:tvdbId', function(){
   this.layout('seriesLayout');
   this.render('episodeList',{
     data: function(){
-      var episodes = Episodes.find({tvdbId: parseInt(this.params.tvdbId)});
+      var episodes = Episodes.find({tvdbId: parseInt(this.params.tvdbId)}, {sort: {season: 1, number: 1}});
       console.log("episodes", episodes, this.params.tvdbId);
       return {episodes: episodes};
     }
@@ -16,7 +16,9 @@ Router.route('/series/:tvdbId', function(){
   this.render('seriesInfo',{
     to: 'topper',
     data: function(){
-      return Series.find({tvdbId: this.params.tvdbId});
+      var series = Series.find({tvdbId: parseInt(this.params.tvdbId)});
+      console.log("series", series);
+      return {series: series};
     }
   });
 });
