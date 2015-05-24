@@ -5,6 +5,7 @@
   flex-wrap: wrap;
   height: 100%;
   overflow: hidden;
+  z-index: 9999;
 }
 .series-topper-poster{
   flex-basis: 20%;
@@ -32,6 +33,7 @@
 }
 
 .episode-list{
+  z-index: 9999;
 }
 
 .episode-list-item{

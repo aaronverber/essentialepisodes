@@ -27,7 +27,16 @@ Template.searchResults.events({
       Meteor.call("getEpisodeCount", series);
     }
     console.log(series, event.currentTarget);
-    Session.set("clickedEpisode", series);
+    Session.set("selectedSeries", series);
     Router.go('/series/' + series);
+  }
+});
+
+Template.backgroundImage.helpers({
+  setBackground: function(){
+    Session.get("selectedSeries");
+    var relatedSeries = Series.find({tvdbId: seriesNum});
+    console.log("backImg", relatedSeries);
+    return relatedSeries;
   }
 });

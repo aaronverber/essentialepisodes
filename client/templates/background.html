@@ -1,0 +1,20 @@
+<template name="backgroundImage">
+<script>
+var pathArray = window.location.pathname.split("/");
+var seriesNum = pathArray[2];
+$("div.series-container").css({
+  "background": "url(/img/fanart/"+ seriesNum +".jpg) no-repeat center center fixed",
+  "background-size": "cover",
+  "-webkit-background-size": "cover",
+  "-moz-background-size": "cover",
+  "-o-background-size": "cover",
+  "z-index": "-1",
+  "height": "100%",
+  "width":"100%",
+  "display": "block",
+  "position": "fixed",
+  "opacity": "0.1",
+  "margin-top":"-50px"
+});
+</script>
+</template>

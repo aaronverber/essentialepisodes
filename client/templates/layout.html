@@ -1,6 +1,7 @@
 <template name = "homeLayout">
   <div>{{> navigation}}</div>
 
+
   <topper>
     {{> yield "topper"}}
   </topper>
@@ -11,15 +12,17 @@
 
 </template>
 
+
+
 <template name = "seriesLayout">
   <div>{{> navigation}}</div>
 
-  <topper>
-    {{> yield "topper"}}
-  </topper>
+    <topper>
+      {{> yield "topper"}}
+    </topper>
 
-  <content>
-    {{> yield}}
-  </content>
+    <content>
+      {{> yield}}
+    </content>
 
 </template>
