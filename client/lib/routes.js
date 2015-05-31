@@ -4,19 +4,38 @@ Router.route('/', function(){
   this.render('jumbotron', {to: 'topper'});
 });
 
-Router.route('/series/:tvdbId', function(){
-  this.layout('seriesLayout');
-  this.render('episodeList',{
-    data: function(){
-      var episodes = Episodes.find({tvdbId: parseInt(this.params.tvdbId)}, {sort: {season: 1, number: 1}});
-      return {episodes: episodes};
-    }
-  });
-  this.render('seriesInfo',{
-    to: 'topper',
-    data: function(){
-      var series = Series.find({tvdbId: parseInt(this.params.tvdbId)});
-      return {series: series};
-    }
-  });
+Router.route('/series/:tvdbId', {
+  action: function(){
+    this.layout('seriesLayout');
+    this.render('episodeList',{
+      data: function(){
+        var episodes = Episodes.find({tvdbId: parseInt(this.params.tvdbId)}, {sort: {season: 1, number: 1}}).fetch();
+        var seasons = _.groupBy(episodes, 'season');
+        console.log("seasons", seasons);
+        var seasonEpisodes = _.map(_.keys(seasons), function(season){
+          return {episodes: seasons[season], season: season};
+        });
+        console.log("seasonEpisodes", seasonEpisodes);
+        return {seasons: seasonEpisodes};
+      }
+    });
+    this.render('seriesInfo',{
+      to: 'topper',
+      data: function(){
+        var series = Series.find({tvdbId: parseInt(this.params.tvdbId)});
+        return {series: series};
+      }
+    });
+    this.render('seasonTabs',{
+      to: 'tabpanel',
+      data: function(){
+        var data = Episodes.find({tvdbId: parseInt(this.params.tvdbId)}).fetch();
+        var distinctData = _.uniq(data, false, function(d) {return d.season});
+        var seasons = _.pluck(distinctData, "season");
+        seasons.sort();
+        Session.set("seasonArray", seasons);
+        return {seasons: seasons};
+      }
+    });
+  }
 });

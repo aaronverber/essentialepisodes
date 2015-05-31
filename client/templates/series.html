@@ -18,11 +18,13 @@
 </template>
 
 <template name="episodeList">
-  <div class="container episode-list">
-    {{#each episodes}}
-      {{> episodeListItem}}
+    {{#each seasons}}
+      <div role="tabpanel" class="tab-pane" id="season-{{season}}">
+        {{#each episodes}}
+          {{> episodeListItem}}
+        {{/each}}
+      </div>
     {{/each}}
-  </div>
 </template>
 
 <template name="episodeListItem">
@@ -32,4 +34,20 @@
       <p>{{description}}</p>
     </div>
   </div>
+</template>
+
+<template name="seasonTabs">
+  <div class="col-lg-12 col-sm-12">
+    <div class="seasonTabs">
+      <ul class="nav nav-tabs" role="tablist">
+        {{#each seasons}}
+          {{> seasonTabItem}}
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</template>
+
+<template name="seasonTabItem">
+  <li role="presentation"><a href="#season-{{this}}" aria-controls="season-{{this}}" role="tab" data-toggle="tab">SEASON {{this}}</a></li>
 </template>

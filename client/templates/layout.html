@@ -2,13 +2,13 @@
   <div>{{> navigation}}</div>
 
 
-  <topper>
+  <div>
     {{> yield "topper"}}
-  </topper>
+  </div>
 
-  <content>
+  <div>
     {{> yield}}
-  </content>
+  </div>
 
 </template>
 
@@ -17,12 +17,18 @@
 <template name = "seriesLayout">
   <div>{{> navigation}}</div>
 
-    <topper>
+    <div>
       {{> yield "topper"}}
-    </topper>
+    </div>
 
-    <content>
-      {{> yield}}
-    </content>
+    <div class="tabpanel container">
+      <div>
+        {{> yield "tabpanel"}}
+      </div>
+
+      <div class="tab-content">
+        {{> yield}}
+      </div>
+    </div>
 
 </template>
