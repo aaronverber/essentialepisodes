@@ -164,9 +164,7 @@ Meteor.methods({
             "accept-language" : "en-US,en;q=0.8"
           }
         });
-        console.log(episodeData);
         var episodeDataParsed = JSON.parse(episodeData.content).data;
-        console.log(episodeDataParsed);
         _.each(episodeDataParsed, function(result){
           Episodes.insert({
             "tvdbId": id,

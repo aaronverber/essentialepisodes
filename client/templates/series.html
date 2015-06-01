@@ -19,7 +19,7 @@
 
 <template name="episodeList">
     {{#each seasons}}
-      <div role="tabpanel" class="tab-pane" id="season-{{season}}">
+      <div role="tabpanel" class="tab-pane fade active" id="season-{{season}}">
         {{#each episodes}}
           {{> episodeListItem}}
         {{/each}}
@@ -49,5 +49,5 @@
 </template>
 
 <template name="seasonTabItem">
-  <li role="presentation"><a href="#season-{{this}}" aria-controls="season-{{this}}" role="tab" data-toggle="tab">SEASON {{this}}</a></li>
+  <li role="presentation"><a href="#season-{{this}}" aria-controls="season-{{this}}" role="tab" data-toggle="tab"> {{this}}</a></li>
 </template>
