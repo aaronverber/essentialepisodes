@@ -18,19 +18,19 @@
 </template>
 
 <template name="episodeList">
-    {{#each seasons}}
-      <div role="tabpanel" class="tab-pane fade active" id="season-{{season}}">
-        {{#each episodes}}
-          {{> episodeListItem}}
-        {{/each}}
-      </div>
-    {{/each}}
+  {{#each seasons}}
+    <div role="tabpanel" class="tab-pane fade active" id="season-{{season}}">
+      {{#each episodes}}
+        {{> episodeListItem}}
+      {{/each}}
+    </div>
+  {{/each}}
 </template>
 
 <template name="episodeListItem">
   <div class="col-lg-12 col-sm-12">
     <div class="episode-list-item">
-      <h4>{{season}}.{{number}}: {{name}}</h4>
+      <h4>{{number}}: {{name}}</h4>
       <p>{{description}}</p>
     </div>
   </div>
