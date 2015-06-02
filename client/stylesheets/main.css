@@ -74,7 +74,7 @@
 }
 
 .series-list-item-poster{
-  flex-basis: 25%;
+  flex-basis: 20%;
   flex-grow: 1;
 }
 
@@ -84,7 +84,7 @@
 
 .series-list-item-text{
   padding: 10px;
-  flex-basis: 75%;
+  flex-basis: 80%;
   flex-grow: 1;
 }
 
@@ -108,4 +108,3 @@
 .jumbotron h3{
   font-weight: 400;
 }
-

@@ -40,3 +40,7 @@ Template.backgroundImage.helpers({
     return relatedSeries;
   }
 });
+
+Template.seasonTabItem.onRendered(function(){
+  $('.seasonTabs a:first').tab('show');
+});

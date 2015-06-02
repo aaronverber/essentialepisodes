@@ -9,7 +9,7 @@ Router.route('/series/:tvdbId', {
     this.layout('seriesLayout');
     this.render('episodeList',{
       data: function(){
-        var episodes = Episodes.find({tvdbId: parseInt(this.params.tvdbId)}, {sort: {season: 1, number: 1}}).fetch();
+        var episodes = Episodes.find({$and: [{"tvdbId": parseInt(this.params.tvdbId)}, {"season": {$gt: 0}}]}, {sort: {season: 1, number: 1}}).fetch();
         var seasons = _.groupBy(episodes, 'season');
         //console.log("seasons", seasons);
         var seasonEpisodes = _.map(_.keys(seasons), function(season){
