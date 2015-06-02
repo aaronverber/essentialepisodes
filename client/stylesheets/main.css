@@ -62,10 +62,10 @@
 
 .series-list-item h2{
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   padding: 5px 0 5px 0;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 900;
   border-bottom: 1px solid black;
 }
 

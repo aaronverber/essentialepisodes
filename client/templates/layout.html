@@ -1,7 +1,6 @@
 <template name = "homeLayout">
   <div>{{> navigation}}</div>
 
-
   <div>
     {{> yield "topper"}}
   </div>
@@ -17,18 +16,27 @@
 <template name = "seriesLayout">
   <div>{{> navigation}}</div>
 
+  <div>
+    {{> yield "topper"}}
+  </div>
+
+  <div class="tabpanel container">
     <div>
-      {{> yield "topper"}}
+      {{> yield "tabpanel"}}
     </div>
 
-    <div class="tabpanel container">
-      <div>
-        {{> yield "tabpanel"}}
-      </div>
-
-      <div class="tab-content">
-        {{> yield}}
-      </div>
+    <div class="tab-content">
+      {{> yield}}
     </div>
+  </div>
+
+</template>
+
+<template name = "accountLayout">
+  <div>{{> navigation}}</div>
+
+  <div>
+    {{> yield}}
+  </div>
 
 </template>

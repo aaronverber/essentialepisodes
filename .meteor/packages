@@ -17,3 +17,11 @@ iron:router
 percolate:momentum
 jquery
 okgrow:iron-router-autoscroll
+accounts-base
+accounts-password
+accounts-ui-unstyled
+accounts-google
+accounts-facebook
+useraccounts:core
+useraccounts:bootstrap
+service-configuration
