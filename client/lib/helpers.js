@@ -13,8 +13,8 @@ Template.jumbotron.events({
 Template.searchResults.helpers({
   seriesSearchResults: function(){
     var stuff = Session.get("seriesSearchResults");
-    console.log("stuff", stuff);
-    return Series.find({tvdbId:{$in: stuff}});
+    //console.log("stuff", stuff);
+    return Series.find({tvdbId:{$in: stuff}}, {sort: {hitCount: -1}});
   }
 });
 
@@ -26,6 +26,8 @@ Template.searchResults.events({
     } else{
       Meteor.call("getEpisodeCount", series);
     }
+    var seriesArray = JSON.parse("[" + series + "]");
+    Meteor.call("updateHitCount", seriesArray);
     console.log(series, event.currentTarget);
     Session.set("selectedSeries", series);
     Router.go('/series/' + series);

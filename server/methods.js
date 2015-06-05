@@ -111,12 +111,25 @@ Meteor.methods({
         };
       });
       var searchedSeriesIds = _.pluck(seriesSearchResultsParsed, "id");
+      Meteor.call("updateHitCount", searchedSeriesIds);
       return searchedSeriesIds;
       //var searchedSeriesDB = Series.find({tvdbId:{$in: searchedSeriesIds}}).fetch();
       //return searchedSeriesDB;
     } catch(e){
       return false;
     };
+  },
+
+  updateHitCount: function(seriesArray){
+    //console.log("updating hit count");
+    _.each(seriesArray, function(result){
+      console.log("updating", result);
+      Series.update(
+        {"tvdbId": result},
+        {$inc:{hitCount : 1}}
+      );
+    });
+    return false;
   },
 
   getEpisodeCount: function(id){
