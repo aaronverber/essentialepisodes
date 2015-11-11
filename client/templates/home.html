@@ -23,11 +23,9 @@
 
 <template name="searchResults">
   <div class="container">
-    {{#momentum plugin="fade"}}
 			{{#each seriesSearchResults}}
 				{{> seriesListItem}}
 			{{/each}}
-    {{/momentum}}
 </div>
 </template>
 
@@ -38,7 +36,7 @@
         <img src="{{poster}}" alt="no image">
       </div>
       <div class="series-list-item-text">
-        <h2>{{name}}, {{hitCount}}</h2>
+        <h2>{{name}}</h2>
         <p>{{description}}</p>
       </div>
     </div>

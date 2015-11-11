@@ -46,3 +46,9 @@ Template.backgroundImage.helpers({
 Template.seasonTabItem.onRendered(function(){
   $('.seasonTabs a:first').tab('show');
 });
+
+Template.seriesInfo.onRendered(function(){
+  $("img").error(function(){
+    $(this).hide();
+  });
+});
