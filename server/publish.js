@@ -5,3 +5,7 @@ Meteor.publish("series", function(){
 Meteor.publish("episodes", function(){
   return Episodes.find();
 });
+
+Meteor.publish("users", function(){
+  return Meteor.users.find({},{fields:{profile:1}})
+});

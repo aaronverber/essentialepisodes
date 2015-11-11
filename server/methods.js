@@ -8,6 +8,7 @@ function writeImage(type, fileName, buffer){
   var projectFolder = rootPath;
   var imageFolder = "public/img";
   var imagePath = path.join(projectFolder, imageFolder, type, fileName);
+  console.log(imagePath);
   fs.writeFileSync(imagePath, buffer, 'binary');
 }
 
@@ -46,7 +47,7 @@ Meteor.methods({
   authTVDB: function(){
     this.unblock();
     try{
-      var result = HTTP.call("POST", "https://api-dev.thetvdb.com/login", {
+      var result = HTTP.call("POST", "https://api-beta.thetvdb.com/login", {
         data: {
           "apikey": "E6247B9FBD3BC9A5",
           "username": "averber",
@@ -75,7 +76,7 @@ Meteor.methods({
     var token = Meteor.call("getAuthToken");
     console.log("SEARCH FOR SERIES", token);
     try{
-      var seriesSearchResults = HTTP.call("GET", "https://api-dev.thetvdb.com/search/series",{
+      var seriesSearchResults = HTTP.call("GET", "https://api-beta.thetvdb.com/search/series",{
         params:{
           "name": searchedSeries
         },
@@ -111,7 +112,7 @@ Meteor.methods({
         };
       });
       var searchedSeriesIds = _.pluck(seriesSearchResultsParsed, "id");
-      Meteor.call("updateHitCount", searchedSeriesIds);
+      //Meteor.call("updateHitCount", searchedSeriesIds);
       return searchedSeriesIds;
       //var searchedSeriesDB = Series.find({tvdbId:{$in: searchedSeriesIds}}).fetch();
       //return searchedSeriesDB;
@@ -135,7 +136,7 @@ Meteor.methods({
   getEpisodeCount: function(id){
     var token = Meteor.call("getAuthToken");
     try{
-      var episodeCount = HTTP.call("GET", "https://api-dev.thetvdb.com/series/" + id + "/episodes/summary",{
+      var episodeCount = HTTP.call("GET", "https://api-beta.thetvdb.com/series/" + id + "/episodes/summary",{
         headers:{
           "authorization" : "Bearer " + token,
           "accept" : "application/vnd.thetvdb.v1.2.0",
@@ -167,13 +168,12 @@ Meteor.methods({
     var token = Meteor.call("getAuthToken");
     for (i = 0; i < pages; i++){
       try{
-        var episodeData = HTTP.call("GET", "https://api-dev.thetvdb.com/series/" + id + "/episodes", {
+        var episodeData = HTTP.call("GET", "https://api-beta.thetvdb.com/series/" + id + "/episodes", {
           params:{
             "page" : (i + 1)
           },
           headers:{
             "authorization" : "Bearer " + token,
-            "accept" : "application/vnd.thetvdb.v1.2.0",
             "accept-language" : "en-US,en;q=0.8"
           }
         });
@@ -198,7 +198,7 @@ Meteor.methods({
     console.log("get extra images");
     var token = Meteor.call("getAuthToken");
     try{
-      var extraImages = HTTP.call("GET", "https://api-dev.thetvdb.com/series/" + id + "/images/query",{
+      var extraImages = HTTP.call("GET", "https://api-beta.thetvdb.com/series/" + id + "/images/query",{
         params:{
           "keyType" : type
         },
