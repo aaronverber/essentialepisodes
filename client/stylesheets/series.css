@@ -48,8 +48,14 @@
 .episode-list-item h4{
   text-transform: uppercase;
   font-weight: 700;
-  margin-top: 15px;
+  margin-top: 0px;
   margin-bottom: 12px;
+}
+
+.episode-list-item h5{
+  color: #bbb;
+  font-size: 12px;
+  margin-bottom: 2px;
 }
 
 .episode-list-item p{

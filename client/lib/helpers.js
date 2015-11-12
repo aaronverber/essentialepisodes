@@ -14,7 +14,7 @@ Template.searchResults.helpers({
   seriesSearchResults: function(){
     var stuff = Session.get("seriesSearchResults");
     //console.log("stuff", stuff);
-    return Series.find({tvdbId:{$in: stuff}}, {sort: {hitCount: -1}});
+    return Series.find({$and: [{tvdbId:{$in: stuff}},{poster:{$regex:/.jpg/}}]}, {sort: {hitCount: -1}});
   }
 });
 
