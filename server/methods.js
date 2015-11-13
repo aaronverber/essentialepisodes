@@ -1,10 +1,9 @@
 var fs = Meteor.npmRequire('fs');
 var http=Npm.require("http");
 var path = Npm.require('path');
-
 var rootPath = path.resolve('.').split('.meteor')[0];
 
-function writeImage(type, fileName, buffer){
+function writeImage(type, fileName, buffer){ // Write the image to a file.
   var projectFolder = rootPath;
   var imageFolder = "public/img";
   var imagePath = path.join(projectFolder, imageFolder, type, fileName);
@@ -12,7 +11,7 @@ function writeImage(type, fileName, buffer){
   fs.writeFileSync(imagePath, buffer, 'binary');
 }
 
-function getImageData(type, name, url){
+function getImageData(type, name, url){ // Get the image data from theTVDB.
   url = "http://thetvdb.com/banners/" + url;
   http.get(url, function(resp) {
     var buf = new Buffer("", "binary");
@@ -26,25 +25,9 @@ function getImageData(type, name, url){
 }
 
 
-
-function getFanartImages(id){
-  var apiKey = "e8e54550751d9a8304589c5d166c557d";
-  var url = "http://private-anon-bbb7bf2e1-fanarttv.apiary-proxy.com/v3/tv/" + id + "?api_key=" + apiKey;
-  http.get(url, function(res){
-    var data = "";
-    res.on("data", function(chunk) {
-      data += chunk;
-    });
-    res.on("end",function(){
-      console.log(data.name);
-    })
-  });
-}
-
-
 Meteor.methods({
 
-  authTVDB: function(){
+  authTVDB: function(){ // Get the API authentication key from theTVDB and store it.
     this.unblock();
     try{
       var result = HTTP.call("POST", "https://api-beta.thetvdb.com/login", {
@@ -66,13 +49,13 @@ Meteor.methods({
     }
   },
 
-  getAuthToken: function(){
+  getAuthToken: function(){ // Get the latest local copy of the authentication key.
     var AuthToken = Authentication.findOne({}, {sort: {$natural: -1}});
     console.log(AuthToken);
     return AuthToken.token;
   },
 
-  searchForSeries: function(searchedSeries){
+  searchForSeries: function(searchedSeries){ // Get an array of series IDs, download records if needed.
     var token = Meteor.call("getAuthToken");
     console.log("SEARCH FOR SERIES", token);
     try{
@@ -87,11 +70,9 @@ Meteor.methods({
         }
       });
       var seriesSearchResultsParsed = JSON.parse(seriesSearchResults.content).data;
-      //console.log(seriesSearchResultsParsed);
       _.each(seriesSearchResultsParsed, function(result){
         var fileExtension = path.extname(result.poster);
         if(Series.find({"tvdbId": {"$eq": result.id}}).count()>0){
-          //console.log("record exists");
           return;
         } else {
           Series.insert({
@@ -103,7 +84,6 @@ Meteor.methods({
             "createdAt": new Date(),
             "banner": "/img/banner/" + result.id + fileExtension
           });
-          //console.log("record added");
           var poster = result.poster;
           var type = "banner";
           getImageData(type, result.id + fileExtension, poster);
@@ -112,16 +92,13 @@ Meteor.methods({
         };
       });
       var searchedSeriesIds = _.pluck(seriesSearchResultsParsed, "id");
-      //Meteor.call("updateHitCount", searchedSeriesIds);
       return searchedSeriesIds;
-      //var searchedSeriesDB = Series.find({tvdbId:{$in: searchedSeriesIds}}).fetch();
-      //return searchedSeriesDB;
     } catch(e){
       return false;
     };
   },
 
-  updateHitCount: function(seriesArray){
+  updateHitCount: function(seriesArray){ // Add 1 to the series hit count.
     //console.log("updating hit count");
     _.each(seriesArray, function(result){
       console.log("updating", result);
@@ -133,7 +110,7 @@ Meteor.methods({
     return false;
   },
 
-  getEpisodeCount: function(id){
+  getEpisodeCount: function(id){ // Get number of episodes for a series, set up getEpisodeDetails call.
     var token = Meteor.call("getAuthToken");
     try{
       var episodeCount = HTTP.call("GET", "https://api-beta.thetvdb.com/series/" + id + "/episodes/summary",{
@@ -145,7 +122,6 @@ Meteor.methods({
       });
       var episodeCountParsed = JSON.parse(episodeCount.content).data;
       var totalEpisodes = episodeCountParsed.airedEpisodes;
-      //var totalSeasons = episodeCountParsed.airedSeasons;
       Series.update({
         "tvdbId": id
       },{
@@ -163,7 +139,7 @@ Meteor.methods({
     };
   },
 
-  getEpisodeDetails: function(id, pages){
+  getEpisodeDetails: function(id, pages){ // Download episode details and store in DB.
     console.log("getting episode count for", id);
     var token = Meteor.call("getAuthToken");
     for (i = 0; i < pages; i++){
@@ -194,7 +170,7 @@ Meteor.methods({
     };
   },
 
-  getExtraImages: function(id, type){
+  getExtraImages: function(id, type){ // Gets extra image information and calls getImageData.
     console.log("get extra images");
     var token = Meteor.call("getAuthToken");
     try{
